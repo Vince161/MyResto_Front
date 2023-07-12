@@ -16,17 +16,14 @@ class _LoginPageState extends State<LoginPage> {
   String errorMessage = '';
 
   void authenticateUser(BuildContext context) async {
-    const baseUrl = 'http://holgar.duckdns.org/api/user/login/';
-    String auth = 'Basic <base64 encoded username:password>';
-    
-    final url = Uri.parse(baseUrl + auth);
+    const baseUrl = 'http://holgar.duckdns.org/api/user/login';
+    String basicAuth = 'Basic ${base64Encode(utf8.encode('$username:$password'))}';
+    final url = Uri.parse(baseUrl);
 
     final response = await http.post(
       url,
       headers: {
-        'Authorization': 'basic <base64 encoded username:password>',
-        'Username': username,
-        'Password': password,
+        'Authorization': basicAuth,
       },
     );
 
